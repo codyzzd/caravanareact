@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model usuario {
+  id       String   @id @unique
+  email    String   @unique
+  password String
+  role     String?
+  salt     String
+  created  DateTime @default(now())
+}
+
+model registro_caravana {
+  id    String   @id @unique
+  name  String
+  start  DateTime
+  return DateTime?
+}
+
+
+model registro_banco {
+  id String @id @unique @default(uuid())
+  numero_banco Int
+  id_caravana String
+  id_passageiro String
+  id_cadastrador String
+}
+
+
+model tipos_onibus {
+  id         String @id @unique @default(uuid())
+  bancos      Int
+  foto String?
+  obs String?
+}
+
+model tipos_documento{
+  id  String @id @unique @default(uuid())
+  nome   String
+}
+
+model tipos_ordenanca{
+  id  String @id @unique @default(uuid())
+  nome String
+}
+
+model alas{
+  id String @id @unique @default(uuid())
+  nome String
+  id_estaca String
+  cod Int?
+}
+
+model estaca{
+  id String @id @unique @default(uuid())
+  nome String
+  cod Int?
+}
