@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 //imports
 import moment from "moment-timezone";
-
+import { v4 } from "uuid";
 // funcoes
 const convertToSaoPauloTime = (date) => {
   // Cria um objeto moment a partir da data
@@ -35,7 +35,7 @@ function create_salt() {
 export async function POST(req) {
   try {
     // Gera um ID usando a função uuidv4()
-    //const id = v4();
+    const id = v4();
     // Obter a data e hora do servidor no fuso horário UTC
     const datetime_now = moment().tz("UTC");
     // Converte o objeto moment para um objeto Date
@@ -51,6 +51,7 @@ export async function POST(req) {
     // Crie um novo registro no banco de dados usando os dados fornecidos
     const createdRecord = await prisma.usuario.create({
       data: {
+        id,
         email,
         password,
         salt,
