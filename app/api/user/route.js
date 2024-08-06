@@ -32,7 +32,7 @@ function create_salt() {
 
 /* ----------------------------------- API ---------------------------------- */
 // creater user
-export async function POST() {
+export async function POST(req) {
   try {
     // Gera um ID usando a função uuidv4()
     //const id = v4();
