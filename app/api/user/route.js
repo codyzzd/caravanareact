@@ -30,9 +30,20 @@ function create_salt() {
   return saltHex;
 }
 
-/* ----------------------------------- API ---------------------------------- */
-// creater user
-export async function POST(req) {
+export default async function handler(req) {
+  switch (req.method) {
+    case "POST":
+      return handlePost(req);
+    case "GET":
+      return handleGet();
+    default:
+      return NextResponse.json(
+        { error: `Method ${req.method} Not Allowed` },
+        { status: 405 }
+      );
+  }
+}
+const handlePost = async (req) => {
   try {
     // Gera um ID usando a função uuidv4()
     const id = v4();
@@ -68,4 +79,19 @@ export async function POST(req) {
   } finally {
     await prisma.$disconnect(); // Certifique-se de desconectar o Prisma após a operação
   }
-}
+};
+
+const handleGet = async () => {
+  try {
+    const users = await prisma.usuario.findMany();
+    return NextResponse.json(users);
+  } catch (error) {
+    console.error("Error fetching records:", error);
+    return NextResponse.json(
+      { error: "Error fetching records." },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect(); // Certifique-se de desconectar o Prisma após a operação
+  }
+};
