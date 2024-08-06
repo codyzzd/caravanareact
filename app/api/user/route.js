@@ -55,7 +55,6 @@ export async function POST(req) {
         email,
         password,
         salt,
-        role,
       },
     });
 
