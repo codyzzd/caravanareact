@@ -7,58 +7,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model usuario {
-  id       String   @id @unique
-  email    String   @unique
-  password String
-  role     String?
-  salt     String
-  created  DateTime @default(now())
+// model users {
+//   id       String   @id(map: "users_pkey") @unique(map: "users_id_key")
+//   email    String   @unique(map: "users_email_key")
+//   salt     String
+//   created  DateTime @default(now())
+//   password String
+//   role     String?
+// }
+
+model caravans {
+  id     String    @id @unique @default(uuid())
+  name   String
+  start_travel  DateTime
+  return_travel DateTime
 }
 
-model registro_caravana {
-  id    String   @id @unique
-  name  String
-  start  DateTime
-  return DateTime?
-}
+// model tickets {
+//   id             String @id(map: "registro_banco_pkey") @unique(map: "registro_banco_id_key") @default(uuid())
+//   numero_banco   Int
+//   id_caravana    String
+//   id_passageiro  String
+//   id_cadastrador String
+// }
 
+// model buses {
+//   id     String  @id(map: "tipos_onibus_pkey") @unique(map: "tipos_onibus_id_key") @default(uuid())
+//   bancos Int
+//   foto   String?
+//   obs    String?
+// }
 
-model registro_banco {
-  id String @id @unique @default(uuid())
-  numero_banco Int
-  id_caravana String
-  id_passageiro String
-  id_cadastrador String
-}
+// model documents {
+//   id   String @id(map: "tipos_documento_pkey") @unique(map: "tipos_documento_id_key") @default(uuid())
+//   nome String
+// }
 
+// model ordinances {
+//   id   String @id(map: "tipos_ordenanca_pkey") @unique(map: "tipos_ordenanca_id_key") @default(uuid())
+//   nome String
+// }
 
-model tipos_onibus {
-  id         String @id @unique @default(uuid())
-  bancos      Int
-  foto String?
-  obs String?
-}
+// model wards {
+//   id        String @id(map: "alas_pkey") @unique(map: "alas_id_key") @default(uuid())
+//   nome      String
+//   id_estaca String
+//   cod       Int?
+// }
 
-model tipos_documento{
-  id  String @id @unique @default(uuid())
-  nome   String
-}
-
-model tipos_ordenanca{
-  id  String @id @unique @default(uuid())
-  nome String
-}
-
-model alas{
-  id String @id @unique @default(uuid())
-  nome String
-  id_estaca String
-  cod Int?
-}
-
-model estaca{
-  id String @id @unique @default(uuid())
-  nome String
-  cod Int?
-}
+// model stakes {
+//   id   String @id @unique @default(uuid())
+//   nome String
+//   cod  Int?
+// }
